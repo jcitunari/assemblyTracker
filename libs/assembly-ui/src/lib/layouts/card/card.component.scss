@@ -1,0 +1,87 @@
+:host {
+  display: block;
+}
+
+.a-ui-card {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+
+  /* ===== Variants ===== */
+
+  &.variant-default {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  &.variant-elevated {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  &.variant-outlined {
+    box-shadow: none;
+  }
+
+  /* ===== Padding base ===== */
+
+  &.padding-none { padding: 0; }
+  &.padding-sm { padding: 0.75rem; }
+  &.padding-md { padding: 1.25rem; }
+  &.padding-lg { padding: 2rem; }
+
+  /* ===== Responsive padding ===== */
+
+  &.responsive-padding {
+    padding: 1rem;
+
+    @media (min-width: 640px) {
+      padding: 1.25rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 2rem;
+    }
+  }
+
+  /* ===== Max Widths ===== */
+
+  &.max-width-sm { max-width: 24rem; }
+  &.max-width-md { max-width: 32rem; }
+  &.max-width-lg { max-width: 48rem; }
+  &.max-width-xl { max-width: 64rem; }
+  &.max-width-none { max-width: none; }
+
+  margin-left: auto;
+  margin-right: auto;
+
+  /* ===== Sections ===== */
+
+  &__header {
+    margin-bottom: 1rem;
+    font-weight: 600;
+
+    @media (max-width: 640px) {
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  &__content {
+    font-size: 0.875rem;
+  }
+
+  &__footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+
+    @media (max-width: 640px) {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+    }
+  }
+}
+
+.full-width {
+  max-width: 100% !important;
+}

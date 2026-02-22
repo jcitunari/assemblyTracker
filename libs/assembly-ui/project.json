@@ -1,8 +1,8 @@
 {
-  "name": "pt",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "name": "assembly-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "assembly-ui/src",
-  "prefix": "lib",
+  "prefix": "assembly-ui",
   "projectType": "library",
   "tags": [],
   "targets": {

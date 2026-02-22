@@ -2,7 +2,7 @@
 
 Assembly es una aplicación de **gestión y control de asistencia para asambleas**, desarrollada como un **monorepo con Nx**, utilizando **Angular 21** para el frontend y **NestJS + Prisma** para el backend.
 
-Incluye una librería de componentes reutilizables (**assembly-ui**) totalmente **standalone**, basada en **Tailwind CSS**.
+Incluye una librería de componentes reutilizables (**assembly-ui**) totalmente **standalone**, basada en **Tailwind CSS**, y ahora cuenta con **arquitectura de rutas públicas y privadas**, usando layouts y guards para separar contenido seguro de contenido público.
 
 El objetivo es ofrecer una plataforma **escalable, segura y multiplataforma** (web / desktop / mobile) para la gestión de asistencia, control de quórum y administración de sesiones.
 
@@ -13,10 +13,12 @@ El objetivo es ofrecer una plataforma **escalable, segura y multiplataforma** (w
 ### Frontend
 
 * **Angular 21** (Standalone Components)
-* **TailwindCSS 4**
+* **TailwindCSS 4 + SCSS**
 * RxJS
 * Arquitectura modular con Nx
 * Librería de UI `assembly-ui` (componentes reutilizables)
+* Rutas públicas y privadas con layouts (`PublicLayoutComponent` y `SecureLayoutComponent`)
+* Guards de autenticación (`AuthGuard`)
 
 ### Backend
 
@@ -35,11 +37,35 @@ El objetivo es ofrecer una plataforma **escalable, segura y multiplataforma** (w
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Estructura del Proyecto (Frontend)
 
 ```
 apps/
 ├─ assembly-app/       # Frontend Angular
+│   ├─ app/
+│   │   ├─ core/
+│   │   │   ├─ guards/
+│   │   │   │   └─ auth.guard.ts
+│   │   │   └─ services/
+│   │   │       └─ auth.service.ts
+│   │   ├─ layouts/
+│   │   │   ├─ public-layout/
+│   │   │   │   ├─ public-layout.component.ts
+│   │   │   │   └─ public-layout.component.html
+│   │   │   └─ secure-layout/
+│   │   │       ├─ secure-layout.component.ts
+│   │   │       └─ secure-layout.component.html
+│   │   ├─ features/
+│   │   │   ├─ auth/
+│   │   │   │   ├─ login/
+│   │   │   │   │   ├─ login.component.ts
+│   │   │   │   │   └─ login.component.html
+│   │   │   │   └─ auth-routing.module.ts
+│   │   │   └─ dashboard/
+│   │   │       ├─ dashboard.component.ts
+│   │   │       └─ dashboard-routing.module.ts
+│   │   ├─ app-routing.module.ts
+│   │   └─ app.component.ts
 └─ assembly-api/       # Backend NestJS
 
 libs/
@@ -50,11 +76,12 @@ libs/
       └─ modal/
 ```
 
+* **Rutas públicas**: `/login`, `/register`, `/forgot-password` → cargadas dentro de `PublicLayoutComponent`.
+* **Rutas privadas**: `/dashboard`, `/profile`, `/settings` → cargadas dentro de `SecureLayoutComponent` y protegidas por `AuthGuard`.
 * Cada componente de `assembly-ui` es **standalone**, exportable y reutilizable.
-* Los `index.ts` en cada carpeta permiten importarlos fácilmente desde otras apps:
 
 ```ts
-import { ButtonComponent } from '@assembly/assembly-ui';
+import { ButtonComponent, CardComponent } from '@assembly/assembly-ui';
 ```
 
 ---
@@ -90,62 +117,67 @@ npx prisma studio
 
 ---
 
-## 🎯 Estado del Proyecto
+## 🔧 Cómo usar la arquitectura de rutas
 
-🚧 **En desarrollo activo**
+### Layouts
 
-Funcionalidades planeadas:
+```html
+<!-- PublicLayoutComponent -->
+<router-outlet></router-outlet>
 
-* Gestión de asambleas
-* Registro de miembros
-* Control de asistencia
-* Cálculo automático de quórum
-* Historial de sesiones
-* Roles y permisos
-* Soporte Desktop (Tauri) y Mobile (Capacitor)
-
----
-
-## 🏛️ Dominio del Proyecto
-
-El sistema está diseñado para modelar entidades como:
-
-* **Assembly**
-* **Session**
-* **Member**
-* **Attendance Record**
-* **Quorum Rules**
-
-Pensado para organizaciones, asociaciones, juntas directivas o instituciones que requieran trazabilidad y control formal de asistencia.
-
----
-
-## 📌 Filosofía del Proyecto
-
-* MVP primero
-* Dominio bien modelado
-* Escalabilidad desde el día uno
-* Seguridad y trazabilidad
-* UI modular y reusable
-* Arquitectura limpia y mantenible
-
----
-
-## 💡 Librería de Componentes (`assembly-ui`)
-
-* Todos los componentes son **standalone**.
-* Utilizan **TailwindCSS** y SCSS.
-* Estructura típica de un componente:
-
-```
-libs/assembly-ui/src/lib/components/button/
- ├─ button.component.ts
- ├─ button.component.html
- ├─ button.component.scss
- └─ index.ts
+<!-- SecureLayoutComponent -->
+<header>Header seguro</header>
+<main><router-outlet></router-outlet></main>
+<footer>Footer seguro</footer>
 ```
 
-* Se exporta todo desde `libs/assembly-ui/src/lib/index.ts`.
+### Rutas públicas y privadas en `app-routing.module.ts`
+
+```ts
+const routes: Routes = [
+  {
+    path: '',
+    component: PublicLayoutComponent,
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', loadChildren: () => import('./features/auth/auth-routing.module').then(m => m.AuthRoutingModule) }
+    ]
+  },
+  {
+    path: '',
+    component: SecureLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard-routing.module').then(m => m.DashboardRoutingModule) }
+    ]
+  },
+  { path: '**', redirectTo: 'login' }
+];
+```
+
+* `PublicLayoutComponent`: contiene las páginas accesibles sin login.
+* `SecureLayoutComponent`: contiene páginas seguras, solo accesibles si `AuthGuard` permite el acceso.
+
+---
+
+## 💎 Ejemplo de uso de `assembly-ui` en Login
+
+```html
+<assembly-ui-card>
+  <div card-header>
+    <h2>Login</h2>
+  </div>
+
+  <div card-content>
+    <form>
+      <assembly-ui-button label="Iniciar sesión"></assembly-ui-button>
+    </form>
+  </div>
+</assembly-ui-card>
+```
+
+* `card-header`, `card-content`, `card-footer` permiten personalizar cada sección del card.
+* Todos los componentes son **responsive** y **modulares**.
 
 ---
 

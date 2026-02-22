@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcome } from './nx-welcome';
-import { ButtonComponent } from '@assembly/assembly-ui';
+import {Component} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {ButtonComponent} from '@assembly/assembly-ui';
 
 @Component({
-  imports: [NxWelcome, RouterModule, ButtonComponent],
+  imports: [RouterModule, ButtonComponent],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',

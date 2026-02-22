@@ -1,0 +1,34 @@
+<div
+  class="a-ui-card"
+  [ngClass]="[
+    'variant-' + variant,
+    'padding-' + padding,
+    responsivePadding ? 'responsive-padding' : '',
+    fullWidth ? 'full-width' : '',
+    'max-width-' + maxWidth
+  ]"
+>
+
+  @if (header()) {
+  <div class="a-ui-card__header">
+    <ng-content select="[card-header]" />
+  </div>
+  }
+
+  @if (content()) {
+  <div class="a-ui-card__content">
+    <ng-content select="[card-content]" />
+  </div>
+  } @else {
+  <div class="a-ui-card__content">
+    <ng-content />
+  </div>
+  }
+
+  @if (footer()) {
+  <div class="a-ui-card__footer">
+    <ng-content select="[card-footer]" />
+  </div>
+  }
+
+</div>
