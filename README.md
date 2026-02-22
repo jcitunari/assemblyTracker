@@ -51,7 +51,7 @@ libs/
 - Los `index.ts` en cada carpeta permiten importarlos fácilmente desde otras apps:
 
 ```ts
-import { ButtonComponent } from '@pomotracker/pomotracker-ui';
+import { ButtonComponent } from '@pomotracker/assembly-ui';
 ````
 
 ---

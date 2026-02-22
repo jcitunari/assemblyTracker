@@ -1,17 +1,17 @@
 {
-  "name": "@pomotracker/source",
+  "name": "@assembly/source",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start:fe": "nx serve pomotracker-app",
-    "build:fe": "nx build pomotracker-app",
-    "test:fe": "nx test pomotracker-app",
-    "lint:fe": "nx lint pomotracker-app",
-    "start:be": "nx serve pomotracker-api",
-    "build:be": "nx build pomotracker-api",
-    "test:be": "nx test pomotracker-api",
-    "lint:be": "nx lint pomotracker-api"
+    "start:fe": "nx serve assembly-app",
+    "build:fe": "nx build assembly-app",
+    "test:fe": "nx test assembly-app",
+    "lint:fe": "nx lint assembly-app",
+    "start:be": "nx serve assembly-api",
+    "build:be": "nx build assembly-api",
+    "test:be": "nx test assembly-api",
+    "lint:be": "nx lint assembly-api"
   },
   "dependencies": {
     "@angular/common": "~21.1.0",

@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pomotracker/pomotracker-ui": ["libs/pomotracker-ui/src/index.ts"]
+      "@assembly/assembly-ui": ["libs/assembly-ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

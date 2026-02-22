@@ -62,7 +62,7 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/pomotracker-api-e2e/**/*"]
+      "exclude": ["apps/assembly-api-e2e/**/*"]
     }
   ],
   "generators": {
