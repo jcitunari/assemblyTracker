@@ -17,7 +17,9 @@ export class LoginComponent {
 
   email = '';
   password = '';
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) {
+    console.log('test1')
+  }
 
   onLogin() {
     this.auth.login('demo-token');
