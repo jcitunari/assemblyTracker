@@ -1,2 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
 @use 'tailwindcss';
+
+:root {
+  --color-primary: #1e3b8a;
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}

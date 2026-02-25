@@ -1,16 +1,11 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
-  darkMode: 'class',
-  content: [
-    './apps/**/*.{html,ts}',
-    './libs/**/*.{html,ts}',
-  ],
   theme: {
     extend: {
       colors: {
-        primary: '#1e3b8a',
+        primary: '#1e3b8a', // color estático
+        secondary: '#f59e0b',
       },
     },
   },
-  plugins: [],
 };
