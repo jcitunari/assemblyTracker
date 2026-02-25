@@ -30,20 +30,6 @@
   &.padding-md { padding: 1.25rem; }
   &.padding-lg { padding: 2rem; }
 
-  /* ===== Responsive padding ===== */
-
-  &.responsive-padding {
-    padding: 1rem;
-
-    @media (min-width: 640px) {
-      padding: 1.25rem;
-    }
-
-    @media (min-width: 1024px) {
-      padding: 2rem;
-    }
-  }
-
   /* ===== Max Widths ===== */
 
   &.max-width-sm { max-width: 24rem; }
