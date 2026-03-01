@@ -6,7 +6,7 @@ import { NgClass } from '@angular/common';
   standalone: true,
   imports: [NgClass],
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'] // <- corregido
+  styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
   @Input() variant: 'default' | 'outlined' | 'elevated' = 'default';

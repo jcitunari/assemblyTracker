@@ -3,7 +3,6 @@
 }
 
 .assembly-ui-card {
-  background: #ffffff;
   border-radius: 0.75rem;
   border: 1px solid #e2e8f0;
   transition: all 0.2s ease-in-out;
@@ -29,20 +28,6 @@
   &.padding-sm { padding: 0.75rem; }
   &.padding-md { padding: 1.25rem; }
   &.padding-lg { padding: 2rem; }
-
-  /* ===== Responsive padding ===== */
-
-  &.responsive-padding {
-    padding: 1rem;
-
-    @media (min-width: 640px) {
-      padding: 1.25rem;
-    }
-
-    @media (min-width: 1024px) {
-      padding: 2rem;
-    }
-  }
 
   /* ===== Max Widths ===== */
 
