@@ -4,6 +4,6 @@
   --color-primary: #1e3b8a;
 }
 
-.bg-primary {
-  background-color: var(--color-primary);
+@theme {
+  --color-primary: var(--color-primary);
 }

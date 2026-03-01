@@ -11,7 +11,8 @@ import {FormsModule} from "@angular/forms";
     CardComponent,
     FormsModule
   ],
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
 
